@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Vehicles Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #eef2f7;
+      color: #333;
+    }
+    header {
+      background: #1a1a40;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+    }
+    .search-bar {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .search-bar input {
+      width: 60%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #222;
+    }
+    .card p {
+      margin: 5px 0;
+    }
+    .vehicle-type {
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Travel Vehicles Dashboard</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search vehicles...">
+  </div>
+
+  <div class="container" id="vehicleContainer">
+    <!-- Cards will be generated here -->
+  </div>
+
+  <script>
+    const vehicles = [
+      {
+        name: "Car",
+        type: "Land",
+        description: "Comfortable for families and small groups, ideal for road trips."
+      },
+      {
+        name: "Bus",
+        type: "Land",
+        description: "Affordable public transport, suitable for long journeys with groups."
+      },
+      {
+        name: "Motorcycle",
+        type: "Land",
+        description: "Best for solo travel, quick city rides, and adventure trips."
+      },
+      {
+        name: "Train",
+        type: "Rail",
+        description: "Efficient and fast for long distances, comfortable seating options."
+      },
+      {
+        name: "Airplane",
+        type: "Air",
+        description: "Fastest way to cover long distances across cities and countries."
+      },
+      {
+        name: "Bicycle",
+        type: "Land",
+        description: "Eco-friendly and healthy travel option, perfect for short distances."
+      },
+      {
+        name: "Ship",
+        type: "Water",
+        description: "Spacious and luxurious travel across oceans and seas."
+      },
+      {
+        name: "Boat",
+        type: "Water",
+        description: "Convenient for short water journeys, rivers, and lakes."
+      }
+    ];
+
+    const container = document.getElementById("vehicleContainer");
+
+    function displayVehicles(list) {
+      container.innerHTML = "";
+      list.forEach(vehicle => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2>${vehicle.name}</h2>
+          <p class="vehicle-type">Type: ${vehicle.type}</p>
+          <p>${vehicle.description}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Initial display
+    displayVehicles(vehicles);
+
+    // Search filter
+    document.getElementById("search").addEventListener("input", function(e) {
+      const query = e.target.value.toLowerCase();
+      const filtered = vehicles.filter(v =>
+        v.name.toLowerCase().includes(query) ||
+        v.type.toLowerCase().includes(query) ||
+        v.description.toLowerCase().includes(query)
+      );
+      displayVehicles(filtered);
+    });
+  </script>
+</body>
+</html>
